@@ -132,6 +132,16 @@ async function updateVolunteerProfile(userId, { availabilityStatus, latitude, lo
     }
   });
 
+  // Publish events after database update commits
+  const eventPublisher = require('../realtime/eventPublisher');
+  if (availabilityStatus !== undefined && updated.availabilityStatus !== volunteer.availabilityStatus) {
+    eventPublisher.publish('volunteer:availability_changed', { volunteer: updated });
+  }
+  if ((latitude !== undefined || longitude !== undefined) &&
+      (updated.latitude !== volunteer.latitude || updated.longitude !== volunteer.longitude)) {
+    eventPublisher.publish('volunteer:location_updated', { volunteer: updated });
+  }
+
   return updated;
 }
 

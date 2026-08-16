@@ -54,6 +54,10 @@ async function createIncident(userId, { title, description, category, latitude, 
     }
   });
 
+  // Publish incident:created after database insertion commits
+  const eventPublisher = require('../realtime/eventPublisher');
+  eventPublisher.publish('incident:created', { incident });
+
   return incident;
 }
 
@@ -159,6 +163,10 @@ async function updateIncidentStatus(id, newStatus, userRole) {
       requiredSkills: true
     }
   });
+
+  // Publish incident:status_changed after database update commits
+  const eventPublisher = require('../realtime/eventPublisher');
+  eventPublisher.publish('incident:status_changed', { incident: updated });
 
   return updated;
 }

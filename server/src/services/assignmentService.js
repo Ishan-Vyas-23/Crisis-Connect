@@ -113,7 +113,7 @@ async function assignVolunteer(adminUserRole, { incidentId, volunteerId }) {
     throw new ForbiddenError("Access denied: only administrators can assign volunteers");
   }
 
-  return await runSerializableTransaction(async (tx) => {
+  const assignment = await runSerializableTransaction(async (tx) => {
     // 1. Verify volunteer exists
     const volunteer = await tx.volunteer.findUnique({
       where: { id: volunteerId }
@@ -191,6 +191,19 @@ async function assignVolunteer(adminUserRole, { incidentId, volunteerId }) {
 
     return assignment;
   });
+
+  // Publish events after transaction successfully commits
+  const eventPublisher = require('../realtime/eventPublisher');
+  eventPublisher.publish('assignment:created', { assignment });
+  
+  const incident = await prisma.incident.findUnique({
+    where: { id: incidentId }
+  });
+  if (incident) {
+    eventPublisher.publish('incident:status_changed', { incident });
+  }
+
+  return assignment;
 }
 
 async function getRankedMatches(adminUserRole, incidentId) {
@@ -382,7 +395,7 @@ async function getVolunteerAssignments(volunteerUserId) {
 }
 
 async function updateAssignmentStatus(id, volunteerUserId, userRole, newStatus) {
-  return await runSerializableTransaction(async (tx) => {
+  const updated = await runSerializableTransaction(async (tx) => {
     const assignment = await tx.incidentAssignment.findUnique({
       where: { id },
       include: {
@@ -447,6 +460,19 @@ async function updateAssignmentStatus(id, volunteerUserId, userRole, newStatus) 
 
     return updated;
   });
+
+  // Publish events after transaction successfully commits
+  const eventPublisher = require('../realtime/eventPublisher');
+  eventPublisher.publish(`assignment:${newStatus.toLowerCase()}`, { assignment: updated });
+
+  const incident = await prisma.incident.findUnique({
+    where: { id: updated.incidentId }
+  });
+  if (incident) {
+    eventPublisher.publish('incident:status_changed', { incident });
+  }
+
+  return updated;
 }
 
 module.exports = {

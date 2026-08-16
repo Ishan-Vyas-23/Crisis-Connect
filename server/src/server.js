@@ -2,9 +2,15 @@ require('dotenv').config();
 const app = require('./app');
 const prisma = require('./config/prisma');
 
+const http = require('http');
+const { initializeSocket } = require('./realtime/socketServer');
+
 const PORT = process.env.PORT || 5000;
 
-const server = app.listen(PORT, () => {
+const httpServer = http.createServer(app);
+initializeSocket(httpServer);
+
+const server = httpServer.listen(PORT, () => {
   console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
 });
 
