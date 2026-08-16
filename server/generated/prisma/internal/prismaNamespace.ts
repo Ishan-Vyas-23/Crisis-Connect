@@ -402,7 +402,8 @@ export const ModelName = {
   Skill: 'Skill',
   Incident: 'Incident',
   RefreshToken: 'RefreshToken',
-  IncidentAssignment: 'IncidentAssignment'
+  IncidentAssignment: 'IncidentAssignment',
+  IncidentAIAnalysis: 'IncidentAIAnalysis'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -418,7 +419,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "volunteer" | "skill" | "incident" | "refreshToken" | "incidentAssignment"
+    modelProps: "user" | "volunteer" | "skill" | "incident" | "refreshToken" | "incidentAssignment" | "incidentAIAnalysis"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -866,6 +867,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    IncidentAIAnalysis: {
+      payload: Prisma.$IncidentAIAnalysisPayload<ExtArgs>
+      fields: Prisma.IncidentAIAnalysisFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.IncidentAIAnalysisFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IncidentAIAnalysisPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.IncidentAIAnalysisFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IncidentAIAnalysisPayload>
+        }
+        findFirst: {
+          args: Prisma.IncidentAIAnalysisFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IncidentAIAnalysisPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.IncidentAIAnalysisFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IncidentAIAnalysisPayload>
+        }
+        findMany: {
+          args: Prisma.IncidentAIAnalysisFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IncidentAIAnalysisPayload>[]
+        }
+        create: {
+          args: Prisma.IncidentAIAnalysisCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IncidentAIAnalysisPayload>
+        }
+        createMany: {
+          args: Prisma.IncidentAIAnalysisCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.IncidentAIAnalysisCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IncidentAIAnalysisPayload>[]
+        }
+        delete: {
+          args: Prisma.IncidentAIAnalysisDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IncidentAIAnalysisPayload>
+        }
+        update: {
+          args: Prisma.IncidentAIAnalysisUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IncidentAIAnalysisPayload>
+        }
+        deleteMany: {
+          args: Prisma.IncidentAIAnalysisDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.IncidentAIAnalysisUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.IncidentAIAnalysisUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IncidentAIAnalysisPayload>[]
+        }
+        upsert: {
+          args: Prisma.IncidentAIAnalysisUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IncidentAIAnalysisPayload>
+        }
+        aggregate: {
+          args: Prisma.IncidentAIAnalysisAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateIncidentAIAnalysis>
+        }
+        groupBy: {
+          args: Prisma.IncidentAIAnalysisGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.IncidentAIAnalysisGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.IncidentAIAnalysisCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.IncidentAIAnalysisCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -953,9 +1028,9 @@ export const IncidentScalarFieldEnum = {
   latitude: 'latitude',
   longitude: 'longitude',
   address: 'address',
-  aiClassification: 'aiClassification',
-  aiConfidence: 'aiConfidence',
   peopleAtRisk: 'peopleAtRisk',
+  classificationSource: 'classificationSource',
+  aiNeedsReview: 'aiNeedsReview',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   resolvedAt: 'resolvedAt'
@@ -991,6 +1066,25 @@ export const IncidentAssignmentScalarFieldEnum = {
 } as const
 
 export type IncidentAssignmentScalarFieldEnum = (typeof IncidentAssignmentScalarFieldEnum)[keyof typeof IncidentAssignmentScalarFieldEnum]
+
+
+export const IncidentAIAnalysisScalarFieldEnum = {
+  id: 'id',
+  incidentId: 'incidentId',
+  provider: 'provider',
+  model: 'model',
+  suggestedCategory: 'suggestedCategory',
+  suggestedPriority: 'suggestedPriority',
+  suggestedPeopleAtRisk: 'suggestedPeopleAtRisk',
+  suggestedSkills: 'suggestedSkills',
+  confidence: 'confidence',
+  reasoning: 'reasoning',
+  status: 'status',
+  errorMessage: 'errorMessage',
+  createdAt: 'createdAt'
+} as const
+
+export type IncidentAIAnalysisScalarFieldEnum = (typeof IncidentAIAnalysisScalarFieldEnum)[keyof typeof IncidentAIAnalysisScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1153,6 +1247,20 @@ export type EnumIncidentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$P
  * Reference to a field of type 'IncidentStatus[]'
  */
 export type ListEnumIncidentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'IncidentStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ClassificationSource'
+ */
+export type EnumClassificationSourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ClassificationSource'>
+    
+
+
+/**
+ * Reference to a field of type 'ClassificationSource[]'
+ */
+export type ListEnumClassificationSourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ClassificationSource[]'>
     
 
 
@@ -1340,6 +1448,7 @@ export type GlobalOmitConfig = {
   incident?: Prisma.IncidentOmit
   refreshToken?: Prisma.RefreshTokenOmit
   incidentAssignment?: Prisma.IncidentAssignmentOmit
+  incidentAIAnalysis?: Prisma.IncidentAIAnalysisOmit
 }
 
 /* Types for Logging */

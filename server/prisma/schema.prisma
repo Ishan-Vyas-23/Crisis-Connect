@@ -101,27 +101,28 @@ model Skill {
 }
 
 model Incident {
-  id               String           @id @default(uuid())
-  reportedById     String
-  title            String
-  description      String
-  category         IncidentCategory
-  priority         IncidentPriority @default(MEDIUM)
-  status           IncidentStatus   @default(REPORTED)
-  latitude         Float
-  longitude        Float
-  address          String?
-  aiClassification String?
-  aiConfidence     Float?
-  peopleAtRisk     Boolean          @default(false)
-  createdAt        DateTime         @default(now())
-  updatedAt        DateTime         @updatedAt
-  resolvedAt       DateTime?
+  id                   String               @id @default(uuid())
+  reportedById         String
+  title                String
+  description          String
+  category             IncidentCategory
+  priority             IncidentPriority     @default(MEDIUM)
+  status               IncidentStatus       @default(REPORTED)
+  latitude             Float
+  longitude            Float
+  address              String?
+  peopleAtRisk         Boolean              @default(false)
+  classificationSource ClassificationSource @default(DEFAULT)
+  aiNeedsReview        Boolean              @default(false)
+  createdAt            DateTime             @default(now())
+  updatedAt            DateTime             @updatedAt
+  resolvedAt           DateTime?
 
   // Relations
-  reportedBy       User             @relation("ReportedIncidents", fields: [reportedById], references: [id])
-  requiredSkills   Skill[]          @relation("IncidentSkills")
-  assignments      IncidentAssignment[]
+  reportedBy           User                 @relation("ReportedIncidents", fields: [reportedById], references: [id])
+  requiredSkills       Skill[]              @relation("IncidentSkills")
+  assignments          IncidentAssignment[]
+  aiAnalyses           IncidentAIAnalysis[]
 
   @@index([reportedById])
 }
@@ -168,5 +169,31 @@ model IncidentAssignment {
   @@index([volunteerId])
   @@index([status])
 }
+
+enum ClassificationSource {
+  DEFAULT
+  AI
+  HUMAN
+}
+
+model IncidentAIAnalysis {
+  id                    String            @id @default(uuid())
+  incidentId            String
+  incident              Incident          @relation(fields: [incidentId], references: [id], onDelete: Cascade)
+  provider              String
+  model                 String
+  suggestedCategory     IncidentCategory?
+  suggestedPriority     IncidentPriority?
+  suggestedPeopleAtRisk Boolean?
+  suggestedSkills       String[]
+  confidence            Float
+  reasoning             String?
+  status                String
+  errorMessage          String?
+  createdAt             DateTime          @default(now())
+
+  @@index([incidentId])
+}
+
 
 

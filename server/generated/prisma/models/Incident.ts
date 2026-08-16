@@ -29,13 +29,11 @@ export type AggregateIncident = {
 export type IncidentAvgAggregateOutputType = {
   latitude: number | null
   longitude: number | null
-  aiConfidence: number | null
 }
 
 export type IncidentSumAggregateOutputType = {
   latitude: number | null
   longitude: number | null
-  aiConfidence: number | null
 }
 
 export type IncidentMinAggregateOutputType = {
@@ -49,9 +47,9 @@ export type IncidentMinAggregateOutputType = {
   latitude: number | null
   longitude: number | null
   address: string | null
-  aiClassification: string | null
-  aiConfidence: number | null
   peopleAtRisk: boolean | null
+  classificationSource: $Enums.ClassificationSource | null
+  aiNeedsReview: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
   resolvedAt: Date | null
@@ -68,9 +66,9 @@ export type IncidentMaxAggregateOutputType = {
   latitude: number | null
   longitude: number | null
   address: string | null
-  aiClassification: string | null
-  aiConfidence: number | null
   peopleAtRisk: boolean | null
+  classificationSource: $Enums.ClassificationSource | null
+  aiNeedsReview: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
   resolvedAt: Date | null
@@ -87,9 +85,9 @@ export type IncidentCountAggregateOutputType = {
   latitude: number
   longitude: number
   address: number
-  aiClassification: number
-  aiConfidence: number
   peopleAtRisk: number
+  classificationSource: number
+  aiNeedsReview: number
   createdAt: number
   updatedAt: number
   resolvedAt: number
@@ -100,13 +98,11 @@ export type IncidentCountAggregateOutputType = {
 export type IncidentAvgAggregateInputType = {
   latitude?: true
   longitude?: true
-  aiConfidence?: true
 }
 
 export type IncidentSumAggregateInputType = {
   latitude?: true
   longitude?: true
-  aiConfidence?: true
 }
 
 export type IncidentMinAggregateInputType = {
@@ -120,9 +116,9 @@ export type IncidentMinAggregateInputType = {
   latitude?: true
   longitude?: true
   address?: true
-  aiClassification?: true
-  aiConfidence?: true
   peopleAtRisk?: true
+  classificationSource?: true
+  aiNeedsReview?: true
   createdAt?: true
   updatedAt?: true
   resolvedAt?: true
@@ -139,9 +135,9 @@ export type IncidentMaxAggregateInputType = {
   latitude?: true
   longitude?: true
   address?: true
-  aiClassification?: true
-  aiConfidence?: true
   peopleAtRisk?: true
+  classificationSource?: true
+  aiNeedsReview?: true
   createdAt?: true
   updatedAt?: true
   resolvedAt?: true
@@ -158,9 +154,9 @@ export type IncidentCountAggregateInputType = {
   latitude?: true
   longitude?: true
   address?: true
-  aiClassification?: true
-  aiConfidence?: true
   peopleAtRisk?: true
+  classificationSource?: true
+  aiNeedsReview?: true
   createdAt?: true
   updatedAt?: true
   resolvedAt?: true
@@ -264,9 +260,9 @@ export type IncidentGroupByOutputType = {
   latitude: number
   longitude: number
   address: string | null
-  aiClassification: string | null
-  aiConfidence: number | null
   peopleAtRisk: boolean
+  classificationSource: $Enums.ClassificationSource
+  aiNeedsReview: boolean
   createdAt: Date
   updatedAt: Date
   resolvedAt: Date | null
@@ -306,15 +302,16 @@ export type IncidentWhereInput = {
   latitude?: Prisma.FloatFilter<"Incident"> | number
   longitude?: Prisma.FloatFilter<"Incident"> | number
   address?: Prisma.StringNullableFilter<"Incident"> | string | null
-  aiClassification?: Prisma.StringNullableFilter<"Incident"> | string | null
-  aiConfidence?: Prisma.FloatNullableFilter<"Incident"> | number | null
   peopleAtRisk?: Prisma.BoolFilter<"Incident"> | boolean
+  classificationSource?: Prisma.EnumClassificationSourceFilter<"Incident"> | $Enums.ClassificationSource
+  aiNeedsReview?: Prisma.BoolFilter<"Incident"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Incident"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Incident"> | Date | string
   resolvedAt?: Prisma.DateTimeNullableFilter<"Incident"> | Date | string | null
   reportedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   requiredSkills?: Prisma.SkillListRelationFilter
   assignments?: Prisma.IncidentAssignmentListRelationFilter
+  aiAnalyses?: Prisma.IncidentAIAnalysisListRelationFilter
 }
 
 export type IncidentOrderByWithRelationInput = {
@@ -328,15 +325,16 @@ export type IncidentOrderByWithRelationInput = {
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
   address?: Prisma.SortOrderInput | Prisma.SortOrder
-  aiClassification?: Prisma.SortOrderInput | Prisma.SortOrder
-  aiConfidence?: Prisma.SortOrderInput | Prisma.SortOrder
   peopleAtRisk?: Prisma.SortOrder
+  classificationSource?: Prisma.SortOrder
+  aiNeedsReview?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   resolvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   reportedBy?: Prisma.UserOrderByWithRelationInput
   requiredSkills?: Prisma.SkillOrderByRelationAggregateInput
   assignments?: Prisma.IncidentAssignmentOrderByRelationAggregateInput
+  aiAnalyses?: Prisma.IncidentAIAnalysisOrderByRelationAggregateInput
 }
 
 export type IncidentWhereUniqueInput = Prisma.AtLeast<{
@@ -353,15 +351,16 @@ export type IncidentWhereUniqueInput = Prisma.AtLeast<{
   latitude?: Prisma.FloatFilter<"Incident"> | number
   longitude?: Prisma.FloatFilter<"Incident"> | number
   address?: Prisma.StringNullableFilter<"Incident"> | string | null
-  aiClassification?: Prisma.StringNullableFilter<"Incident"> | string | null
-  aiConfidence?: Prisma.FloatNullableFilter<"Incident"> | number | null
   peopleAtRisk?: Prisma.BoolFilter<"Incident"> | boolean
+  classificationSource?: Prisma.EnumClassificationSourceFilter<"Incident"> | $Enums.ClassificationSource
+  aiNeedsReview?: Prisma.BoolFilter<"Incident"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Incident"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Incident"> | Date | string
   resolvedAt?: Prisma.DateTimeNullableFilter<"Incident"> | Date | string | null
   reportedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   requiredSkills?: Prisma.SkillListRelationFilter
   assignments?: Prisma.IncidentAssignmentListRelationFilter
+  aiAnalyses?: Prisma.IncidentAIAnalysisListRelationFilter
 }, "id">
 
 export type IncidentOrderByWithAggregationInput = {
@@ -375,9 +374,9 @@ export type IncidentOrderByWithAggregationInput = {
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
   address?: Prisma.SortOrderInput | Prisma.SortOrder
-  aiClassification?: Prisma.SortOrderInput | Prisma.SortOrder
-  aiConfidence?: Prisma.SortOrderInput | Prisma.SortOrder
   peopleAtRisk?: Prisma.SortOrder
+  classificationSource?: Prisma.SortOrder
+  aiNeedsReview?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   resolvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -402,9 +401,9 @@ export type IncidentScalarWhereWithAggregatesInput = {
   latitude?: Prisma.FloatWithAggregatesFilter<"Incident"> | number
   longitude?: Prisma.FloatWithAggregatesFilter<"Incident"> | number
   address?: Prisma.StringNullableWithAggregatesFilter<"Incident"> | string | null
-  aiClassification?: Prisma.StringNullableWithAggregatesFilter<"Incident"> | string | null
-  aiConfidence?: Prisma.FloatNullableWithAggregatesFilter<"Incident"> | number | null
   peopleAtRisk?: Prisma.BoolWithAggregatesFilter<"Incident"> | boolean
+  classificationSource?: Prisma.EnumClassificationSourceWithAggregatesFilter<"Incident"> | $Enums.ClassificationSource
+  aiNeedsReview?: Prisma.BoolWithAggregatesFilter<"Incident"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Incident"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Incident"> | Date | string
   resolvedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Incident"> | Date | string | null
@@ -420,15 +419,16 @@ export type IncidentCreateInput = {
   latitude: number
   longitude: number
   address?: string | null
-  aiClassification?: string | null
-  aiConfidence?: number | null
   peopleAtRisk?: boolean
+  classificationSource?: $Enums.ClassificationSource
+  aiNeedsReview?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
   reportedBy: Prisma.UserCreateNestedOneWithoutIncidentsInput
   requiredSkills?: Prisma.SkillCreateNestedManyWithoutIncidentsInput
   assignments?: Prisma.IncidentAssignmentCreateNestedManyWithoutIncidentInput
+  aiAnalyses?: Prisma.IncidentAIAnalysisCreateNestedManyWithoutIncidentInput
 }
 
 export type IncidentUncheckedCreateInput = {
@@ -442,14 +442,15 @@ export type IncidentUncheckedCreateInput = {
   latitude: number
   longitude: number
   address?: string | null
-  aiClassification?: string | null
-  aiConfidence?: number | null
   peopleAtRisk?: boolean
+  classificationSource?: $Enums.ClassificationSource
+  aiNeedsReview?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
   requiredSkills?: Prisma.SkillUncheckedCreateNestedManyWithoutIncidentsInput
   assignments?: Prisma.IncidentAssignmentUncheckedCreateNestedManyWithoutIncidentInput
+  aiAnalyses?: Prisma.IncidentAIAnalysisUncheckedCreateNestedManyWithoutIncidentInput
 }
 
 export type IncidentUpdateInput = {
@@ -462,15 +463,16 @@ export type IncidentUpdateInput = {
   latitude?: Prisma.FloatFieldUpdateOperationsInput | number
   longitude?: Prisma.FloatFieldUpdateOperationsInput | number
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  aiClassification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  aiConfidence?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   peopleAtRisk?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  classificationSource?: Prisma.EnumClassificationSourceFieldUpdateOperationsInput | $Enums.ClassificationSource
+  aiNeedsReview?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reportedBy?: Prisma.UserUpdateOneRequiredWithoutIncidentsNestedInput
   requiredSkills?: Prisma.SkillUpdateManyWithoutIncidentsNestedInput
   assignments?: Prisma.IncidentAssignmentUpdateManyWithoutIncidentNestedInput
+  aiAnalyses?: Prisma.IncidentAIAnalysisUpdateManyWithoutIncidentNestedInput
 }
 
 export type IncidentUncheckedUpdateInput = {
@@ -484,14 +486,15 @@ export type IncidentUncheckedUpdateInput = {
   latitude?: Prisma.FloatFieldUpdateOperationsInput | number
   longitude?: Prisma.FloatFieldUpdateOperationsInput | number
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  aiClassification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  aiConfidence?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   peopleAtRisk?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  classificationSource?: Prisma.EnumClassificationSourceFieldUpdateOperationsInput | $Enums.ClassificationSource
+  aiNeedsReview?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   requiredSkills?: Prisma.SkillUncheckedUpdateManyWithoutIncidentsNestedInput
   assignments?: Prisma.IncidentAssignmentUncheckedUpdateManyWithoutIncidentNestedInput
+  aiAnalyses?: Prisma.IncidentAIAnalysisUncheckedUpdateManyWithoutIncidentNestedInput
 }
 
 export type IncidentCreateManyInput = {
@@ -505,9 +508,9 @@ export type IncidentCreateManyInput = {
   latitude: number
   longitude: number
   address?: string | null
-  aiClassification?: string | null
-  aiConfidence?: number | null
   peopleAtRisk?: boolean
+  classificationSource?: $Enums.ClassificationSource
+  aiNeedsReview?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
@@ -523,9 +526,9 @@ export type IncidentUpdateManyMutationInput = {
   latitude?: Prisma.FloatFieldUpdateOperationsInput | number
   longitude?: Prisma.FloatFieldUpdateOperationsInput | number
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  aiClassification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  aiConfidence?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   peopleAtRisk?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  classificationSource?: Prisma.EnumClassificationSourceFieldUpdateOperationsInput | $Enums.ClassificationSource
+  aiNeedsReview?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -542,9 +545,9 @@ export type IncidentUncheckedUpdateManyInput = {
   latitude?: Prisma.FloatFieldUpdateOperationsInput | number
   longitude?: Prisma.FloatFieldUpdateOperationsInput | number
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  aiClassification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  aiConfidence?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   peopleAtRisk?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  classificationSource?: Prisma.EnumClassificationSourceFieldUpdateOperationsInput | $Enums.ClassificationSource
+  aiNeedsReview?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -571,9 +574,9 @@ export type IncidentCountOrderByAggregateInput = {
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
   address?: Prisma.SortOrder
-  aiClassification?: Prisma.SortOrder
-  aiConfidence?: Prisma.SortOrder
   peopleAtRisk?: Prisma.SortOrder
+  classificationSource?: Prisma.SortOrder
+  aiNeedsReview?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   resolvedAt?: Prisma.SortOrder
@@ -582,7 +585,6 @@ export type IncidentCountOrderByAggregateInput = {
 export type IncidentAvgOrderByAggregateInput = {
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
-  aiConfidence?: Prisma.SortOrder
 }
 
 export type IncidentMaxOrderByAggregateInput = {
@@ -596,9 +598,9 @@ export type IncidentMaxOrderByAggregateInput = {
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
   address?: Prisma.SortOrder
-  aiClassification?: Prisma.SortOrder
-  aiConfidence?: Prisma.SortOrder
   peopleAtRisk?: Prisma.SortOrder
+  classificationSource?: Prisma.SortOrder
+  aiNeedsReview?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   resolvedAt?: Prisma.SortOrder
@@ -615,9 +617,9 @@ export type IncidentMinOrderByAggregateInput = {
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
   address?: Prisma.SortOrder
-  aiClassification?: Prisma.SortOrder
-  aiConfidence?: Prisma.SortOrder
   peopleAtRisk?: Prisma.SortOrder
+  classificationSource?: Prisma.SortOrder
+  aiNeedsReview?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   resolvedAt?: Prisma.SortOrder
@@ -626,7 +628,6 @@ export type IncidentMinOrderByAggregateInput = {
 export type IncidentSumOrderByAggregateInput = {
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
-  aiConfidence?: Prisma.SortOrder
 }
 
 export type IncidentScalarRelationFilter = {
@@ -734,6 +735,10 @@ export type FloatFieldUpdateOperationsInput = {
   divide?: number
 }
 
+export type EnumClassificationSourceFieldUpdateOperationsInput = {
+  set?: $Enums.ClassificationSource
+}
+
 export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
 }
@@ -752,6 +757,20 @@ export type IncidentUpdateOneRequiredWithoutAssignmentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.IncidentUpdateToOneWithWhereWithoutAssignmentsInput, Prisma.IncidentUpdateWithoutAssignmentsInput>, Prisma.IncidentUncheckedUpdateWithoutAssignmentsInput>
 }
 
+export type IncidentCreateNestedOneWithoutAiAnalysesInput = {
+  create?: Prisma.XOR<Prisma.IncidentCreateWithoutAiAnalysesInput, Prisma.IncidentUncheckedCreateWithoutAiAnalysesInput>
+  connectOrCreate?: Prisma.IncidentCreateOrConnectWithoutAiAnalysesInput
+  connect?: Prisma.IncidentWhereUniqueInput
+}
+
+export type IncidentUpdateOneRequiredWithoutAiAnalysesNestedInput = {
+  create?: Prisma.XOR<Prisma.IncidentCreateWithoutAiAnalysesInput, Prisma.IncidentUncheckedCreateWithoutAiAnalysesInput>
+  connectOrCreate?: Prisma.IncidentCreateOrConnectWithoutAiAnalysesInput
+  upsert?: Prisma.IncidentUpsertWithoutAiAnalysesInput
+  connect?: Prisma.IncidentWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.IncidentUpdateToOneWithWhereWithoutAiAnalysesInput, Prisma.IncidentUpdateWithoutAiAnalysesInput>, Prisma.IncidentUncheckedUpdateWithoutAiAnalysesInput>
+}
+
 export type IncidentCreateWithoutReportedByInput = {
   id?: string
   title: string
@@ -762,14 +781,15 @@ export type IncidentCreateWithoutReportedByInput = {
   latitude: number
   longitude: number
   address?: string | null
-  aiClassification?: string | null
-  aiConfidence?: number | null
   peopleAtRisk?: boolean
+  classificationSource?: $Enums.ClassificationSource
+  aiNeedsReview?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
   requiredSkills?: Prisma.SkillCreateNestedManyWithoutIncidentsInput
   assignments?: Prisma.IncidentAssignmentCreateNestedManyWithoutIncidentInput
+  aiAnalyses?: Prisma.IncidentAIAnalysisCreateNestedManyWithoutIncidentInput
 }
 
 export type IncidentUncheckedCreateWithoutReportedByInput = {
@@ -782,14 +802,15 @@ export type IncidentUncheckedCreateWithoutReportedByInput = {
   latitude: number
   longitude: number
   address?: string | null
-  aiClassification?: string | null
-  aiConfidence?: number | null
   peopleAtRisk?: boolean
+  classificationSource?: $Enums.ClassificationSource
+  aiNeedsReview?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
   requiredSkills?: Prisma.SkillUncheckedCreateNestedManyWithoutIncidentsInput
   assignments?: Prisma.IncidentAssignmentUncheckedCreateNestedManyWithoutIncidentInput
+  aiAnalyses?: Prisma.IncidentAIAnalysisUncheckedCreateNestedManyWithoutIncidentInput
 }
 
 export type IncidentCreateOrConnectWithoutReportedByInput = {
@@ -832,9 +853,9 @@ export type IncidentScalarWhereInput = {
   latitude?: Prisma.FloatFilter<"Incident"> | number
   longitude?: Prisma.FloatFilter<"Incident"> | number
   address?: Prisma.StringNullableFilter<"Incident"> | string | null
-  aiClassification?: Prisma.StringNullableFilter<"Incident"> | string | null
-  aiConfidence?: Prisma.FloatNullableFilter<"Incident"> | number | null
   peopleAtRisk?: Prisma.BoolFilter<"Incident"> | boolean
+  classificationSource?: Prisma.EnumClassificationSourceFilter<"Incident"> | $Enums.ClassificationSource
+  aiNeedsReview?: Prisma.BoolFilter<"Incident"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Incident"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Incident"> | Date | string
   resolvedAt?: Prisma.DateTimeNullableFilter<"Incident"> | Date | string | null
@@ -850,14 +871,15 @@ export type IncidentCreateWithoutRequiredSkillsInput = {
   latitude: number
   longitude: number
   address?: string | null
-  aiClassification?: string | null
-  aiConfidence?: number | null
   peopleAtRisk?: boolean
+  classificationSource?: $Enums.ClassificationSource
+  aiNeedsReview?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
   reportedBy: Prisma.UserCreateNestedOneWithoutIncidentsInput
   assignments?: Prisma.IncidentAssignmentCreateNestedManyWithoutIncidentInput
+  aiAnalyses?: Prisma.IncidentAIAnalysisCreateNestedManyWithoutIncidentInput
 }
 
 export type IncidentUncheckedCreateWithoutRequiredSkillsInput = {
@@ -871,13 +893,14 @@ export type IncidentUncheckedCreateWithoutRequiredSkillsInput = {
   latitude: number
   longitude: number
   address?: string | null
-  aiClassification?: string | null
-  aiConfidence?: number | null
   peopleAtRisk?: boolean
+  classificationSource?: $Enums.ClassificationSource
+  aiNeedsReview?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
   assignments?: Prisma.IncidentAssignmentUncheckedCreateNestedManyWithoutIncidentInput
+  aiAnalyses?: Prisma.IncidentAIAnalysisUncheckedCreateNestedManyWithoutIncidentInput
 }
 
 export type IncidentCreateOrConnectWithoutRequiredSkillsInput = {
@@ -911,14 +934,15 @@ export type IncidentCreateWithoutAssignmentsInput = {
   latitude: number
   longitude: number
   address?: string | null
-  aiClassification?: string | null
-  aiConfidence?: number | null
   peopleAtRisk?: boolean
+  classificationSource?: $Enums.ClassificationSource
+  aiNeedsReview?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
   reportedBy: Prisma.UserCreateNestedOneWithoutIncidentsInput
   requiredSkills?: Prisma.SkillCreateNestedManyWithoutIncidentsInput
+  aiAnalyses?: Prisma.IncidentAIAnalysisCreateNestedManyWithoutIncidentInput
 }
 
 export type IncidentUncheckedCreateWithoutAssignmentsInput = {
@@ -932,13 +956,14 @@ export type IncidentUncheckedCreateWithoutAssignmentsInput = {
   latitude: number
   longitude: number
   address?: string | null
-  aiClassification?: string | null
-  aiConfidence?: number | null
   peopleAtRisk?: boolean
+  classificationSource?: $Enums.ClassificationSource
+  aiNeedsReview?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
   requiredSkills?: Prisma.SkillUncheckedCreateNestedManyWithoutIncidentsInput
+  aiAnalyses?: Prisma.IncidentAIAnalysisUncheckedCreateNestedManyWithoutIncidentInput
 }
 
 export type IncidentCreateOrConnectWithoutAssignmentsInput = {
@@ -967,14 +992,15 @@ export type IncidentUpdateWithoutAssignmentsInput = {
   latitude?: Prisma.FloatFieldUpdateOperationsInput | number
   longitude?: Prisma.FloatFieldUpdateOperationsInput | number
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  aiClassification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  aiConfidence?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   peopleAtRisk?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  classificationSource?: Prisma.EnumClassificationSourceFieldUpdateOperationsInput | $Enums.ClassificationSource
+  aiNeedsReview?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reportedBy?: Prisma.UserUpdateOneRequiredWithoutIncidentsNestedInput
   requiredSkills?: Prisma.SkillUpdateManyWithoutIncidentsNestedInput
+  aiAnalyses?: Prisma.IncidentAIAnalysisUpdateManyWithoutIncidentNestedInput
 }
 
 export type IncidentUncheckedUpdateWithoutAssignmentsInput = {
@@ -988,13 +1014,114 @@ export type IncidentUncheckedUpdateWithoutAssignmentsInput = {
   latitude?: Prisma.FloatFieldUpdateOperationsInput | number
   longitude?: Prisma.FloatFieldUpdateOperationsInput | number
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  aiClassification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  aiConfidence?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   peopleAtRisk?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  classificationSource?: Prisma.EnumClassificationSourceFieldUpdateOperationsInput | $Enums.ClassificationSource
+  aiNeedsReview?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   requiredSkills?: Prisma.SkillUncheckedUpdateManyWithoutIncidentsNestedInput
+  aiAnalyses?: Prisma.IncidentAIAnalysisUncheckedUpdateManyWithoutIncidentNestedInput
+}
+
+export type IncidentCreateWithoutAiAnalysesInput = {
+  id?: string
+  title: string
+  description: string
+  category: $Enums.IncidentCategory
+  priority?: $Enums.IncidentPriority
+  status?: $Enums.IncidentStatus
+  latitude: number
+  longitude: number
+  address?: string | null
+  peopleAtRisk?: boolean
+  classificationSource?: $Enums.ClassificationSource
+  aiNeedsReview?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  resolvedAt?: Date | string | null
+  reportedBy: Prisma.UserCreateNestedOneWithoutIncidentsInput
+  requiredSkills?: Prisma.SkillCreateNestedManyWithoutIncidentsInput
+  assignments?: Prisma.IncidentAssignmentCreateNestedManyWithoutIncidentInput
+}
+
+export type IncidentUncheckedCreateWithoutAiAnalysesInput = {
+  id?: string
+  reportedById: string
+  title: string
+  description: string
+  category: $Enums.IncidentCategory
+  priority?: $Enums.IncidentPriority
+  status?: $Enums.IncidentStatus
+  latitude: number
+  longitude: number
+  address?: string | null
+  peopleAtRisk?: boolean
+  classificationSource?: $Enums.ClassificationSource
+  aiNeedsReview?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  resolvedAt?: Date | string | null
+  requiredSkills?: Prisma.SkillUncheckedCreateNestedManyWithoutIncidentsInput
+  assignments?: Prisma.IncidentAssignmentUncheckedCreateNestedManyWithoutIncidentInput
+}
+
+export type IncidentCreateOrConnectWithoutAiAnalysesInput = {
+  where: Prisma.IncidentWhereUniqueInput
+  create: Prisma.XOR<Prisma.IncidentCreateWithoutAiAnalysesInput, Prisma.IncidentUncheckedCreateWithoutAiAnalysesInput>
+}
+
+export type IncidentUpsertWithoutAiAnalysesInput = {
+  update: Prisma.XOR<Prisma.IncidentUpdateWithoutAiAnalysesInput, Prisma.IncidentUncheckedUpdateWithoutAiAnalysesInput>
+  create: Prisma.XOR<Prisma.IncidentCreateWithoutAiAnalysesInput, Prisma.IncidentUncheckedCreateWithoutAiAnalysesInput>
+  where?: Prisma.IncidentWhereInput
+}
+
+export type IncidentUpdateToOneWithWhereWithoutAiAnalysesInput = {
+  where?: Prisma.IncidentWhereInput
+  data: Prisma.XOR<Prisma.IncidentUpdateWithoutAiAnalysesInput, Prisma.IncidentUncheckedUpdateWithoutAiAnalysesInput>
+}
+
+export type IncidentUpdateWithoutAiAnalysesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.EnumIncidentCategoryFieldUpdateOperationsInput | $Enums.IncidentCategory
+  priority?: Prisma.EnumIncidentPriorityFieldUpdateOperationsInput | $Enums.IncidentPriority
+  status?: Prisma.EnumIncidentStatusFieldUpdateOperationsInput | $Enums.IncidentStatus
+  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  peopleAtRisk?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  classificationSource?: Prisma.EnumClassificationSourceFieldUpdateOperationsInput | $Enums.ClassificationSource
+  aiNeedsReview?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reportedBy?: Prisma.UserUpdateOneRequiredWithoutIncidentsNestedInput
+  requiredSkills?: Prisma.SkillUpdateManyWithoutIncidentsNestedInput
+  assignments?: Prisma.IncidentAssignmentUpdateManyWithoutIncidentNestedInput
+}
+
+export type IncidentUncheckedUpdateWithoutAiAnalysesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  reportedById?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.EnumIncidentCategoryFieldUpdateOperationsInput | $Enums.IncidentCategory
+  priority?: Prisma.EnumIncidentPriorityFieldUpdateOperationsInput | $Enums.IncidentPriority
+  status?: Prisma.EnumIncidentStatusFieldUpdateOperationsInput | $Enums.IncidentStatus
+  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  peopleAtRisk?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  classificationSource?: Prisma.EnumClassificationSourceFieldUpdateOperationsInput | $Enums.ClassificationSource
+  aiNeedsReview?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  requiredSkills?: Prisma.SkillUncheckedUpdateManyWithoutIncidentsNestedInput
+  assignments?: Prisma.IncidentAssignmentUncheckedUpdateManyWithoutIncidentNestedInput
 }
 
 export type IncidentCreateManyReportedByInput = {
@@ -1007,9 +1134,9 @@ export type IncidentCreateManyReportedByInput = {
   latitude: number
   longitude: number
   address?: string | null
-  aiClassification?: string | null
-  aiConfidence?: number | null
   peopleAtRisk?: boolean
+  classificationSource?: $Enums.ClassificationSource
+  aiNeedsReview?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
@@ -1025,14 +1152,15 @@ export type IncidentUpdateWithoutReportedByInput = {
   latitude?: Prisma.FloatFieldUpdateOperationsInput | number
   longitude?: Prisma.FloatFieldUpdateOperationsInput | number
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  aiClassification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  aiConfidence?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   peopleAtRisk?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  classificationSource?: Prisma.EnumClassificationSourceFieldUpdateOperationsInput | $Enums.ClassificationSource
+  aiNeedsReview?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   requiredSkills?: Prisma.SkillUpdateManyWithoutIncidentsNestedInput
   assignments?: Prisma.IncidentAssignmentUpdateManyWithoutIncidentNestedInput
+  aiAnalyses?: Prisma.IncidentAIAnalysisUpdateManyWithoutIncidentNestedInput
 }
 
 export type IncidentUncheckedUpdateWithoutReportedByInput = {
@@ -1045,14 +1173,15 @@ export type IncidentUncheckedUpdateWithoutReportedByInput = {
   latitude?: Prisma.FloatFieldUpdateOperationsInput | number
   longitude?: Prisma.FloatFieldUpdateOperationsInput | number
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  aiClassification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  aiConfidence?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   peopleAtRisk?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  classificationSource?: Prisma.EnumClassificationSourceFieldUpdateOperationsInput | $Enums.ClassificationSource
+  aiNeedsReview?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   requiredSkills?: Prisma.SkillUncheckedUpdateManyWithoutIncidentsNestedInput
   assignments?: Prisma.IncidentAssignmentUncheckedUpdateManyWithoutIncidentNestedInput
+  aiAnalyses?: Prisma.IncidentAIAnalysisUncheckedUpdateManyWithoutIncidentNestedInput
 }
 
 export type IncidentUncheckedUpdateManyWithoutReportedByInput = {
@@ -1065,9 +1194,9 @@ export type IncidentUncheckedUpdateManyWithoutReportedByInput = {
   latitude?: Prisma.FloatFieldUpdateOperationsInput | number
   longitude?: Prisma.FloatFieldUpdateOperationsInput | number
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  aiClassification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  aiConfidence?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   peopleAtRisk?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  classificationSource?: Prisma.EnumClassificationSourceFieldUpdateOperationsInput | $Enums.ClassificationSource
+  aiNeedsReview?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1083,14 +1212,15 @@ export type IncidentUpdateWithoutRequiredSkillsInput = {
   latitude?: Prisma.FloatFieldUpdateOperationsInput | number
   longitude?: Prisma.FloatFieldUpdateOperationsInput | number
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  aiClassification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  aiConfidence?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   peopleAtRisk?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  classificationSource?: Prisma.EnumClassificationSourceFieldUpdateOperationsInput | $Enums.ClassificationSource
+  aiNeedsReview?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reportedBy?: Prisma.UserUpdateOneRequiredWithoutIncidentsNestedInput
   assignments?: Prisma.IncidentAssignmentUpdateManyWithoutIncidentNestedInput
+  aiAnalyses?: Prisma.IncidentAIAnalysisUpdateManyWithoutIncidentNestedInput
 }
 
 export type IncidentUncheckedUpdateWithoutRequiredSkillsInput = {
@@ -1104,13 +1234,14 @@ export type IncidentUncheckedUpdateWithoutRequiredSkillsInput = {
   latitude?: Prisma.FloatFieldUpdateOperationsInput | number
   longitude?: Prisma.FloatFieldUpdateOperationsInput | number
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  aiClassification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  aiConfidence?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   peopleAtRisk?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  classificationSource?: Prisma.EnumClassificationSourceFieldUpdateOperationsInput | $Enums.ClassificationSource
+  aiNeedsReview?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   assignments?: Prisma.IncidentAssignmentUncheckedUpdateManyWithoutIncidentNestedInput
+  aiAnalyses?: Prisma.IncidentAIAnalysisUncheckedUpdateManyWithoutIncidentNestedInput
 }
 
 export type IncidentUncheckedUpdateManyWithoutRequiredSkillsInput = {
@@ -1124,9 +1255,9 @@ export type IncidentUncheckedUpdateManyWithoutRequiredSkillsInput = {
   latitude?: Prisma.FloatFieldUpdateOperationsInput | number
   longitude?: Prisma.FloatFieldUpdateOperationsInput | number
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  aiClassification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  aiConfidence?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   peopleAtRisk?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  classificationSource?: Prisma.EnumClassificationSourceFieldUpdateOperationsInput | $Enums.ClassificationSource
+  aiNeedsReview?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1140,11 +1271,13 @@ export type IncidentUncheckedUpdateManyWithoutRequiredSkillsInput = {
 export type IncidentCountOutputType = {
   requiredSkills: number
   assignments: number
+  aiAnalyses: number
 }
 
 export type IncidentCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   requiredSkills?: boolean | IncidentCountOutputTypeCountRequiredSkillsArgs
   assignments?: boolean | IncidentCountOutputTypeCountAssignmentsArgs
+  aiAnalyses?: boolean | IncidentCountOutputTypeCountAiAnalysesArgs
 }
 
 /**
@@ -1171,6 +1304,13 @@ export type IncidentCountOutputTypeCountAssignmentsArgs<ExtArgs extends runtime.
   where?: Prisma.IncidentAssignmentWhereInput
 }
 
+/**
+ * IncidentCountOutputType without action
+ */
+export type IncidentCountOutputTypeCountAiAnalysesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.IncidentAIAnalysisWhereInput
+}
+
 
 export type IncidentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1183,15 +1323,16 @@ export type IncidentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   latitude?: boolean
   longitude?: boolean
   address?: boolean
-  aiClassification?: boolean
-  aiConfidence?: boolean
   peopleAtRisk?: boolean
+  classificationSource?: boolean
+  aiNeedsReview?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   resolvedAt?: boolean
   reportedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   requiredSkills?: boolean | Prisma.Incident$requiredSkillsArgs<ExtArgs>
   assignments?: boolean | Prisma.Incident$assignmentsArgs<ExtArgs>
+  aiAnalyses?: boolean | Prisma.Incident$aiAnalysesArgs<ExtArgs>
   _count?: boolean | Prisma.IncidentCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["incident"]>
 
@@ -1206,9 +1347,9 @@ export type IncidentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   latitude?: boolean
   longitude?: boolean
   address?: boolean
-  aiClassification?: boolean
-  aiConfidence?: boolean
   peopleAtRisk?: boolean
+  classificationSource?: boolean
+  aiNeedsReview?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   resolvedAt?: boolean
@@ -1226,9 +1367,9 @@ export type IncidentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   latitude?: boolean
   longitude?: boolean
   address?: boolean
-  aiClassification?: boolean
-  aiConfidence?: boolean
   peopleAtRisk?: boolean
+  classificationSource?: boolean
+  aiNeedsReview?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   resolvedAt?: boolean
@@ -1246,19 +1387,20 @@ export type IncidentSelectScalar = {
   latitude?: boolean
   longitude?: boolean
   address?: boolean
-  aiClassification?: boolean
-  aiConfidence?: boolean
   peopleAtRisk?: boolean
+  classificationSource?: boolean
+  aiNeedsReview?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   resolvedAt?: boolean
 }
 
-export type IncidentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "reportedById" | "title" | "description" | "category" | "priority" | "status" | "latitude" | "longitude" | "address" | "aiClassification" | "aiConfidence" | "peopleAtRisk" | "createdAt" | "updatedAt" | "resolvedAt", ExtArgs["result"]["incident"]>
+export type IncidentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "reportedById" | "title" | "description" | "category" | "priority" | "status" | "latitude" | "longitude" | "address" | "peopleAtRisk" | "classificationSource" | "aiNeedsReview" | "createdAt" | "updatedAt" | "resolvedAt", ExtArgs["result"]["incident"]>
 export type IncidentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   reportedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   requiredSkills?: boolean | Prisma.Incident$requiredSkillsArgs<ExtArgs>
   assignments?: boolean | Prisma.Incident$assignmentsArgs<ExtArgs>
+  aiAnalyses?: boolean | Prisma.Incident$aiAnalysesArgs<ExtArgs>
   _count?: boolean | Prisma.IncidentCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type IncidentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1274,6 +1416,7 @@ export type $IncidentPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     reportedBy: Prisma.$UserPayload<ExtArgs>
     requiredSkills: Prisma.$SkillPayload<ExtArgs>[]
     assignments: Prisma.$IncidentAssignmentPayload<ExtArgs>[]
+    aiAnalyses: Prisma.$IncidentAIAnalysisPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1286,9 +1429,9 @@ export type $IncidentPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     latitude: number
     longitude: number
     address: string | null
-    aiClassification: string | null
-    aiConfidence: number | null
     peopleAtRisk: boolean
+    classificationSource: $Enums.ClassificationSource
+    aiNeedsReview: boolean
     createdAt: Date
     updatedAt: Date
     resolvedAt: Date | null
@@ -1689,6 +1832,7 @@ export interface Prisma__IncidentClient<T, Null = never, ExtArgs extends runtime
   reportedBy<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   requiredSkills<T extends Prisma.Incident$requiredSkillsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Incident$requiredSkillsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SkillPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   assignments<T extends Prisma.Incident$assignmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Incident$assignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IncidentAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  aiAnalyses<T extends Prisma.Incident$aiAnalysesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Incident$aiAnalysesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IncidentAIAnalysisPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1728,9 +1872,9 @@ export interface IncidentFieldRefs {
   readonly latitude: Prisma.FieldRef<"Incident", 'Float'>
   readonly longitude: Prisma.FieldRef<"Incident", 'Float'>
   readonly address: Prisma.FieldRef<"Incident", 'String'>
-  readonly aiClassification: Prisma.FieldRef<"Incident", 'String'>
-  readonly aiConfidence: Prisma.FieldRef<"Incident", 'Float'>
   readonly peopleAtRisk: Prisma.FieldRef<"Incident", 'Boolean'>
+  readonly classificationSource: Prisma.FieldRef<"Incident", 'ClassificationSource'>
+  readonly aiNeedsReview: Prisma.FieldRef<"Incident", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Incident", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Incident", 'DateTime'>
   readonly resolvedAt: Prisma.FieldRef<"Incident", 'DateTime'>
@@ -2180,6 +2324,30 @@ export type Incident$assignmentsArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.IncidentAssignmentScalarFieldEnum | Prisma.IncidentAssignmentScalarFieldEnum[]
+}
+
+/**
+ * Incident.aiAnalyses
+ */
+export type Incident$aiAnalysesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the IncidentAIAnalysis
+   */
+  select?: Prisma.IncidentAIAnalysisSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the IncidentAIAnalysis
+   */
+  omit?: Prisma.IncidentAIAnalysisOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.IncidentAIAnalysisInclude<ExtArgs> | null
+  where?: Prisma.IncidentAIAnalysisWhereInput
+  orderBy?: Prisma.IncidentAIAnalysisOrderByWithRelationInput | Prisma.IncidentAIAnalysisOrderByWithRelationInput[]
+  cursor?: Prisma.IncidentAIAnalysisWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.IncidentAIAnalysisScalarFieldEnum | Prisma.IncidentAIAnalysisScalarFieldEnum[]
 }
 
 /**

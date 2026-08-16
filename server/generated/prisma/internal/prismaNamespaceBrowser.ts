@@ -56,7 +56,8 @@ export const ModelName = {
   Skill: 'Skill',
   Incident: 'Incident',
   RefreshToken: 'RefreshToken',
-  IncidentAssignment: 'IncidentAssignment'
+  IncidentAssignment: 'IncidentAssignment',
+  IncidentAIAnalysis: 'IncidentAIAnalysis'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -123,9 +124,9 @@ export const IncidentScalarFieldEnum = {
   latitude: 'latitude',
   longitude: 'longitude',
   address: 'address',
-  aiClassification: 'aiClassification',
-  aiConfidence: 'aiConfidence',
   peopleAtRisk: 'peopleAtRisk',
+  classificationSource: 'classificationSource',
+  aiNeedsReview: 'aiNeedsReview',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   resolvedAt: 'resolvedAt'
@@ -161,6 +162,25 @@ export const IncidentAssignmentScalarFieldEnum = {
 } as const
 
 export type IncidentAssignmentScalarFieldEnum = (typeof IncidentAssignmentScalarFieldEnum)[keyof typeof IncidentAssignmentScalarFieldEnum]
+
+
+export const IncidentAIAnalysisScalarFieldEnum = {
+  id: 'id',
+  incidentId: 'incidentId',
+  provider: 'provider',
+  model: 'model',
+  suggestedCategory: 'suggestedCategory',
+  suggestedPriority: 'suggestedPriority',
+  suggestedPeopleAtRisk: 'suggestedPeopleAtRisk',
+  suggestedSkills: 'suggestedSkills',
+  confidence: 'confidence',
+  reasoning: 'reasoning',
+  status: 'status',
+  errorMessage: 'errorMessage',
+  createdAt: 'createdAt'
+} as const
+
+export type IncidentAIAnalysisScalarFieldEnum = (typeof IncidentAIAnalysisScalarFieldEnum)[keyof typeof IncidentAIAnalysisScalarFieldEnum]
 
 
 export const SortOrder = {

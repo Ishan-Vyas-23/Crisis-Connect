@@ -85,3 +85,12 @@ export const AssignmentStatus = {
 } as const
 
 export type AssignmentStatus = (typeof AssignmentStatus)[keyof typeof AssignmentStatus]
+
+
+export const ClassificationSource = {
+  DEFAULT: 'DEFAULT',
+  AI: 'AI',
+  HUMAN: 'HUMAN'
+} as const
+
+export type ClassificationSource = (typeof ClassificationSource)[keyof typeof ClassificationSource]
