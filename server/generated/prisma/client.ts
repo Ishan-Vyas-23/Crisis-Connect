@@ -66,3 +66,8 @@ export type Incident = Prisma.IncidentModel
  * 
  */
 export type RefreshToken = Prisma.RefreshTokenModel
+/**
+ * Model IncidentAssignment
+ * 
+ */
+export type IncidentAssignment = Prisma.IncidentAssignmentModel

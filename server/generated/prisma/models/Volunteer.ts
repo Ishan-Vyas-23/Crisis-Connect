@@ -246,6 +246,7 @@ export type VolunteerWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Volunteer"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   skills?: Prisma.SkillListRelationFilter
+  assignments?: Prisma.IncidentAssignmentListRelationFilter
 }
 
 export type VolunteerOrderByWithRelationInput = {
@@ -259,6 +260,7 @@ export type VolunteerOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   skills?: Prisma.SkillOrderByRelationAggregateInput
+  assignments?: Prisma.IncidentAssignmentOrderByRelationAggregateInput
 }
 
 export type VolunteerWhereUniqueInput = Prisma.AtLeast<{
@@ -275,6 +277,7 @@ export type VolunteerWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Volunteer"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   skills?: Prisma.SkillListRelationFilter
+  assignments?: Prisma.IncidentAssignmentListRelationFilter
 }, "id" | "userId">
 
 export type VolunteerOrderByWithAggregationInput = {
@@ -317,6 +320,7 @@ export type VolunteerCreateInput = {
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutVolunteerInput
   skills?: Prisma.SkillCreateNestedManyWithoutVolunteersInput
+  assignments?: Prisma.IncidentAssignmentCreateNestedManyWithoutVolunteerInput
 }
 
 export type VolunteerUncheckedCreateInput = {
@@ -329,6 +333,7 @@ export type VolunteerUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   skills?: Prisma.SkillUncheckedCreateNestedManyWithoutVolunteersInput
+  assignments?: Prisma.IncidentAssignmentUncheckedCreateNestedManyWithoutVolunteerInput
 }
 
 export type VolunteerUpdateInput = {
@@ -341,6 +346,7 @@ export type VolunteerUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutVolunteerNestedInput
   skills?: Prisma.SkillUpdateManyWithoutVolunteersNestedInput
+  assignments?: Prisma.IncidentAssignmentUpdateManyWithoutVolunteerNestedInput
 }
 
 export type VolunteerUncheckedUpdateInput = {
@@ -353,6 +359,7 @@ export type VolunteerUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   skills?: Prisma.SkillUncheckedUpdateManyWithoutVolunteersNestedInput
+  assignments?: Prisma.IncidentAssignmentUncheckedUpdateManyWithoutVolunteerNestedInput
 }
 
 export type VolunteerCreateManyInput = {
@@ -445,6 +452,11 @@ export type VolunteerOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type VolunteerScalarRelationFilter = {
+  is?: Prisma.VolunteerWhereInput
+  isNot?: Prisma.VolunteerWhereInput
+}
+
 export type VolunteerCreateNestedOneWithoutUserInput = {
   create?: Prisma.XOR<Prisma.VolunteerCreateWithoutUserInput, Prisma.VolunteerUncheckedCreateWithoutUserInput>
   connectOrCreate?: Prisma.VolunteerCreateOrConnectWithoutUserInput
@@ -531,6 +543,20 @@ export type VolunteerUncheckedUpdateManyWithoutSkillsNestedInput = {
   deleteMany?: Prisma.VolunteerScalarWhereInput | Prisma.VolunteerScalarWhereInput[]
 }
 
+export type VolunteerCreateNestedOneWithoutAssignmentsInput = {
+  create?: Prisma.XOR<Prisma.VolunteerCreateWithoutAssignmentsInput, Prisma.VolunteerUncheckedCreateWithoutAssignmentsInput>
+  connectOrCreate?: Prisma.VolunteerCreateOrConnectWithoutAssignmentsInput
+  connect?: Prisma.VolunteerWhereUniqueInput
+}
+
+export type VolunteerUpdateOneRequiredWithoutAssignmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.VolunteerCreateWithoutAssignmentsInput, Prisma.VolunteerUncheckedCreateWithoutAssignmentsInput>
+  connectOrCreate?: Prisma.VolunteerCreateOrConnectWithoutAssignmentsInput
+  upsert?: Prisma.VolunteerUpsertWithoutAssignmentsInput
+  connect?: Prisma.VolunteerWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.VolunteerUpdateToOneWithWhereWithoutAssignmentsInput, Prisma.VolunteerUpdateWithoutAssignmentsInput>, Prisma.VolunteerUncheckedUpdateWithoutAssignmentsInput>
+}
+
 export type VolunteerCreateWithoutUserInput = {
   id?: string
   availabilityStatus?: $Enums.AvailabilityStatus
@@ -540,6 +566,7 @@ export type VolunteerCreateWithoutUserInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   skills?: Prisma.SkillCreateNestedManyWithoutVolunteersInput
+  assignments?: Prisma.IncidentAssignmentCreateNestedManyWithoutVolunteerInput
 }
 
 export type VolunteerUncheckedCreateWithoutUserInput = {
@@ -551,6 +578,7 @@ export type VolunteerUncheckedCreateWithoutUserInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   skills?: Prisma.SkillUncheckedCreateNestedManyWithoutVolunteersInput
+  assignments?: Prisma.IncidentAssignmentUncheckedCreateNestedManyWithoutVolunteerInput
 }
 
 export type VolunteerCreateOrConnectWithoutUserInput = {
@@ -578,6 +606,7 @@ export type VolunteerUpdateWithoutUserInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   skills?: Prisma.SkillUpdateManyWithoutVolunteersNestedInput
+  assignments?: Prisma.IncidentAssignmentUpdateManyWithoutVolunteerNestedInput
 }
 
 export type VolunteerUncheckedUpdateWithoutUserInput = {
@@ -589,6 +618,7 @@ export type VolunteerUncheckedUpdateWithoutUserInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   skills?: Prisma.SkillUncheckedUpdateManyWithoutVolunteersNestedInput
+  assignments?: Prisma.IncidentAssignmentUncheckedUpdateManyWithoutVolunteerNestedInput
 }
 
 export type VolunteerCreateWithoutSkillsInput = {
@@ -600,6 +630,7 @@ export type VolunteerCreateWithoutSkillsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutVolunteerInput
+  assignments?: Prisma.IncidentAssignmentCreateNestedManyWithoutVolunteerInput
 }
 
 export type VolunteerUncheckedCreateWithoutSkillsInput = {
@@ -611,6 +642,7 @@ export type VolunteerUncheckedCreateWithoutSkillsInput = {
   verificationStatus?: $Enums.VerificationStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  assignments?: Prisma.IncidentAssignmentUncheckedCreateNestedManyWithoutVolunteerInput
 }
 
 export type VolunteerCreateOrConnectWithoutSkillsInput = {
@@ -648,6 +680,70 @@ export type VolunteerScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Volunteer"> | Date | string
 }
 
+export type VolunteerCreateWithoutAssignmentsInput = {
+  id?: string
+  availabilityStatus?: $Enums.AvailabilityStatus
+  latitude?: number | null
+  longitude?: number | null
+  verificationStatus?: $Enums.VerificationStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutVolunteerInput
+  skills?: Prisma.SkillCreateNestedManyWithoutVolunteersInput
+}
+
+export type VolunteerUncheckedCreateWithoutAssignmentsInput = {
+  id?: string
+  userId: string
+  availabilityStatus?: $Enums.AvailabilityStatus
+  latitude?: number | null
+  longitude?: number | null
+  verificationStatus?: $Enums.VerificationStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  skills?: Prisma.SkillUncheckedCreateNestedManyWithoutVolunteersInput
+}
+
+export type VolunteerCreateOrConnectWithoutAssignmentsInput = {
+  where: Prisma.VolunteerWhereUniqueInput
+  create: Prisma.XOR<Prisma.VolunteerCreateWithoutAssignmentsInput, Prisma.VolunteerUncheckedCreateWithoutAssignmentsInput>
+}
+
+export type VolunteerUpsertWithoutAssignmentsInput = {
+  update: Prisma.XOR<Prisma.VolunteerUpdateWithoutAssignmentsInput, Prisma.VolunteerUncheckedUpdateWithoutAssignmentsInput>
+  create: Prisma.XOR<Prisma.VolunteerCreateWithoutAssignmentsInput, Prisma.VolunteerUncheckedCreateWithoutAssignmentsInput>
+  where?: Prisma.VolunteerWhereInput
+}
+
+export type VolunteerUpdateToOneWithWhereWithoutAssignmentsInput = {
+  where?: Prisma.VolunteerWhereInput
+  data: Prisma.XOR<Prisma.VolunteerUpdateWithoutAssignmentsInput, Prisma.VolunteerUncheckedUpdateWithoutAssignmentsInput>
+}
+
+export type VolunteerUpdateWithoutAssignmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  availabilityStatus?: Prisma.EnumAvailabilityStatusFieldUpdateOperationsInput | $Enums.AvailabilityStatus
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutVolunteerNestedInput
+  skills?: Prisma.SkillUpdateManyWithoutVolunteersNestedInput
+}
+
+export type VolunteerUncheckedUpdateWithoutAssignmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  availabilityStatus?: Prisma.EnumAvailabilityStatusFieldUpdateOperationsInput | $Enums.AvailabilityStatus
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  skills?: Prisma.SkillUncheckedUpdateManyWithoutVolunteersNestedInput
+}
+
 export type VolunteerUpdateWithoutSkillsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   availabilityStatus?: Prisma.EnumAvailabilityStatusFieldUpdateOperationsInput | $Enums.AvailabilityStatus
@@ -657,6 +753,7 @@ export type VolunteerUpdateWithoutSkillsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutVolunteerNestedInput
+  assignments?: Prisma.IncidentAssignmentUpdateManyWithoutVolunteerNestedInput
 }
 
 export type VolunteerUncheckedUpdateWithoutSkillsInput = {
@@ -668,6 +765,7 @@ export type VolunteerUncheckedUpdateWithoutSkillsInput = {
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  assignments?: Prisma.IncidentAssignmentUncheckedUpdateManyWithoutVolunteerNestedInput
 }
 
 export type VolunteerUncheckedUpdateManyWithoutSkillsInput = {
@@ -688,10 +786,12 @@ export type VolunteerUncheckedUpdateManyWithoutSkillsInput = {
 
 export type VolunteerCountOutputType = {
   skills: number
+  assignments: number
 }
 
 export type VolunteerCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   skills?: boolean | VolunteerCountOutputTypeCountSkillsArgs
+  assignments?: boolean | VolunteerCountOutputTypeCountAssignmentsArgs
 }
 
 /**
@@ -711,6 +811,13 @@ export type VolunteerCountOutputTypeCountSkillsArgs<ExtArgs extends runtime.Type
   where?: Prisma.SkillWhereInput
 }
 
+/**
+ * VolunteerCountOutputType without action
+ */
+export type VolunteerCountOutputTypeCountAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.IncidentAssignmentWhereInput
+}
+
 
 export type VolunteerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -723,6 +830,7 @@ export type VolunteerSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   skills?: boolean | Prisma.Volunteer$skillsArgs<ExtArgs>
+  assignments?: boolean | Prisma.Volunteer$assignmentsArgs<ExtArgs>
   _count?: boolean | Prisma.VolunteerCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["volunteer"]>
 
@@ -765,6 +873,7 @@ export type VolunteerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs 
 export type VolunteerInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   skills?: boolean | Prisma.Volunteer$skillsArgs<ExtArgs>
+  assignments?: boolean | Prisma.Volunteer$assignmentsArgs<ExtArgs>
   _count?: boolean | Prisma.VolunteerCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type VolunteerIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -779,6 +888,7 @@ export type $VolunteerPayload<ExtArgs extends runtime.Types.Extensions.InternalA
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
     skills: Prisma.$SkillPayload<ExtArgs>[]
+    assignments: Prisma.$IncidentAssignmentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1185,6 +1295,7 @@ export interface Prisma__VolunteerClient<T, Null = never, ExtArgs extends runtim
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   skills<T extends Prisma.Volunteer$skillsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Volunteer$skillsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SkillPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  assignments<T extends Prisma.Volunteer$assignmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Volunteer$assignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IncidentAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1644,6 +1755,30 @@ export type Volunteer$skillsArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.SkillScalarFieldEnum | Prisma.SkillScalarFieldEnum[]
+}
+
+/**
+ * Volunteer.assignments
+ */
+export type Volunteer$assignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the IncidentAssignment
+   */
+  select?: Prisma.IncidentAssignmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the IncidentAssignment
+   */
+  omit?: Prisma.IncidentAssignmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.IncidentAssignmentInclude<ExtArgs> | null
+  where?: Prisma.IncidentAssignmentWhereInput
+  orderBy?: Prisma.IncidentAssignmentOrderByWithRelationInput | Prisma.IncidentAssignmentOrderByWithRelationInput[]
+  cursor?: Prisma.IncidentAssignmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.IncidentAssignmentScalarFieldEnum | Prisma.IncidentAssignmentScalarFieldEnum[]
 }
 
 /**

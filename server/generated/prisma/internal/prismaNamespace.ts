@@ -401,7 +401,8 @@ export const ModelName = {
   Volunteer: 'Volunteer',
   Skill: 'Skill',
   Incident: 'Incident',
-  RefreshToken: 'RefreshToken'
+  RefreshToken: 'RefreshToken',
+  IncidentAssignment: 'IncidentAssignment'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -417,7 +418,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "volunteer" | "skill" | "incident" | "refreshToken"
+    modelProps: "user" | "volunteer" | "skill" | "incident" | "refreshToken" | "incidentAssignment"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -791,6 +792,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    IncidentAssignment: {
+      payload: Prisma.$IncidentAssignmentPayload<ExtArgs>
+      fields: Prisma.IncidentAssignmentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.IncidentAssignmentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IncidentAssignmentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.IncidentAssignmentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IncidentAssignmentPayload>
+        }
+        findFirst: {
+          args: Prisma.IncidentAssignmentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IncidentAssignmentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.IncidentAssignmentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IncidentAssignmentPayload>
+        }
+        findMany: {
+          args: Prisma.IncidentAssignmentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IncidentAssignmentPayload>[]
+        }
+        create: {
+          args: Prisma.IncidentAssignmentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IncidentAssignmentPayload>
+        }
+        createMany: {
+          args: Prisma.IncidentAssignmentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.IncidentAssignmentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IncidentAssignmentPayload>[]
+        }
+        delete: {
+          args: Prisma.IncidentAssignmentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IncidentAssignmentPayload>
+        }
+        update: {
+          args: Prisma.IncidentAssignmentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IncidentAssignmentPayload>
+        }
+        deleteMany: {
+          args: Prisma.IncidentAssignmentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.IncidentAssignmentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.IncidentAssignmentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IncidentAssignmentPayload>[]
+        }
+        upsert: {
+          args: Prisma.IncidentAssignmentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IncidentAssignmentPayload>
+        }
+        aggregate: {
+          args: Prisma.IncidentAssignmentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateIncidentAssignment>
+        }
+        groupBy: {
+          args: Prisma.IncidentAssignmentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.IncidentAssignmentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.IncidentAssignmentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.IncidentAssignmentCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -899,6 +974,23 @@ export const RefreshTokenScalarFieldEnum = {
 } as const
 
 export type RefreshTokenScalarFieldEnum = (typeof RefreshTokenScalarFieldEnum)[keyof typeof RefreshTokenScalarFieldEnum]
+
+
+export const IncidentAssignmentScalarFieldEnum = {
+  id: 'id',
+  incidentId: 'incidentId',
+  volunteerId: 'volunteerId',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  acceptedAt: 'acceptedAt',
+  rejectedAt: 'rejectedAt',
+  startedAt: 'startedAt',
+  completedAt: 'completedAt',
+  cancelledAt: 'cancelledAt'
+} as const
+
+export type IncidentAssignmentScalarFieldEnum = (typeof IncidentAssignmentScalarFieldEnum)[keyof typeof IncidentAssignmentScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1061,6 +1153,20 @@ export type EnumIncidentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$P
  * Reference to a field of type 'IncidentStatus[]'
  */
 export type ListEnumIncidentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'IncidentStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'AssignmentStatus'
+ */
+export type EnumAssignmentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AssignmentStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'AssignmentStatus[]'
+ */
+export type ListEnumAssignmentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AssignmentStatus[]'>
     
 
 
@@ -1233,6 +1339,7 @@ export type GlobalOmitConfig = {
   skill?: Prisma.SkillOmit
   incident?: Prisma.IncidentOmit
   refreshToken?: Prisma.RefreshTokenOmit
+  incidentAssignment?: Prisma.IncidentAssignmentOmit
 }
 
 /* Types for Logging */

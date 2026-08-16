@@ -55,7 +55,8 @@ export const ModelName = {
   Volunteer: 'Volunteer',
   Skill: 'Skill',
   Incident: 'Incident',
-  RefreshToken: 'RefreshToken'
+  RefreshToken: 'RefreshToken',
+  IncidentAssignment: 'IncidentAssignment'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -143,6 +144,23 @@ export const RefreshTokenScalarFieldEnum = {
 } as const
 
 export type RefreshTokenScalarFieldEnum = (typeof RefreshTokenScalarFieldEnum)[keyof typeof RefreshTokenScalarFieldEnum]
+
+
+export const IncidentAssignmentScalarFieldEnum = {
+  id: 'id',
+  incidentId: 'incidentId',
+  volunteerId: 'volunteerId',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  acceptedAt: 'acceptedAt',
+  rejectedAt: 'rejectedAt',
+  startedAt: 'startedAt',
+  completedAt: 'completedAt',
+  cancelledAt: 'cancelledAt'
+} as const
+
+export type IncidentAssignmentScalarFieldEnum = (typeof IncidentAssignmentScalarFieldEnum)[keyof typeof IncidentAssignmentScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -88,6 +88,7 @@ model Volunteer {
   // Relations
   user               User               @relation(fields: [userId], references: [id], onDelete: Cascade)
   skills             Skill[]            @relation("VolunteerSkills")
+  assignments        IncidentAssignment[]
 }
 
 model Skill {
@@ -120,6 +121,7 @@ model Incident {
   // Relations
   reportedBy       User             @relation("ReportedIncidents", fields: [reportedById], references: [id])
   requiredSkills   Skill[]          @relation("IncidentSkills")
+  assignments      IncidentAssignment[]
 
   @@index([reportedById])
 }
@@ -137,4 +139,34 @@ model RefreshToken {
 
   @@index([userId])
 }
+
+enum AssignmentStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  ACTIVE
+  COMPLETED
+  CANCELLED
+}
+
+model IncidentAssignment {
+  id          String           @id @default(uuid())
+  incidentId  String
+  incident    Incident         @relation(fields: [incidentId], references: [id], onDelete: Cascade)
+  volunteerId String
+  volunteer   Volunteer        @relation(fields: [volunteerId], references: [id], onDelete: Cascade)
+  status      AssignmentStatus @default(PENDING)
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  acceptedAt  DateTime?
+  rejectedAt  DateTime?
+  startedAt   DateTime?
+  completedAt DateTime?
+  cancelledAt DateTime?
+
+  @@index([incidentId])
+  @@index([volunteerId])
+  @@index([status])
+}
+
 

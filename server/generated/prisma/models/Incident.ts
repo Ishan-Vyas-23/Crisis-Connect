@@ -314,6 +314,7 @@ export type IncidentWhereInput = {
   resolvedAt?: Prisma.DateTimeNullableFilter<"Incident"> | Date | string | null
   reportedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   requiredSkills?: Prisma.SkillListRelationFilter
+  assignments?: Prisma.IncidentAssignmentListRelationFilter
 }
 
 export type IncidentOrderByWithRelationInput = {
@@ -335,6 +336,7 @@ export type IncidentOrderByWithRelationInput = {
   resolvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   reportedBy?: Prisma.UserOrderByWithRelationInput
   requiredSkills?: Prisma.SkillOrderByRelationAggregateInput
+  assignments?: Prisma.IncidentAssignmentOrderByRelationAggregateInput
 }
 
 export type IncidentWhereUniqueInput = Prisma.AtLeast<{
@@ -359,6 +361,7 @@ export type IncidentWhereUniqueInput = Prisma.AtLeast<{
   resolvedAt?: Prisma.DateTimeNullableFilter<"Incident"> | Date | string | null
   reportedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   requiredSkills?: Prisma.SkillListRelationFilter
+  assignments?: Prisma.IncidentAssignmentListRelationFilter
 }, "id">
 
 export type IncidentOrderByWithAggregationInput = {
@@ -425,6 +428,7 @@ export type IncidentCreateInput = {
   resolvedAt?: Date | string | null
   reportedBy: Prisma.UserCreateNestedOneWithoutIncidentsInput
   requiredSkills?: Prisma.SkillCreateNestedManyWithoutIncidentsInput
+  assignments?: Prisma.IncidentAssignmentCreateNestedManyWithoutIncidentInput
 }
 
 export type IncidentUncheckedCreateInput = {
@@ -445,6 +449,7 @@ export type IncidentUncheckedCreateInput = {
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
   requiredSkills?: Prisma.SkillUncheckedCreateNestedManyWithoutIncidentsInput
+  assignments?: Prisma.IncidentAssignmentUncheckedCreateNestedManyWithoutIncidentInput
 }
 
 export type IncidentUpdateInput = {
@@ -465,6 +470,7 @@ export type IncidentUpdateInput = {
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reportedBy?: Prisma.UserUpdateOneRequiredWithoutIncidentsNestedInput
   requiredSkills?: Prisma.SkillUpdateManyWithoutIncidentsNestedInput
+  assignments?: Prisma.IncidentAssignmentUpdateManyWithoutIncidentNestedInput
 }
 
 export type IncidentUncheckedUpdateInput = {
@@ -485,6 +491,7 @@ export type IncidentUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   requiredSkills?: Prisma.SkillUncheckedUpdateManyWithoutIncidentsNestedInput
+  assignments?: Prisma.IncidentAssignmentUncheckedUpdateManyWithoutIncidentNestedInput
 }
 
 export type IncidentCreateManyInput = {
@@ -622,6 +629,11 @@ export type IncidentSumOrderByAggregateInput = {
   aiConfidence?: Prisma.SortOrder
 }
 
+export type IncidentScalarRelationFilter = {
+  is?: Prisma.IncidentWhereInput
+  isNot?: Prisma.IncidentWhereInput
+}
+
 export type IncidentCreateNestedManyWithoutReportedByInput = {
   create?: Prisma.XOR<Prisma.IncidentCreateWithoutReportedByInput, Prisma.IncidentUncheckedCreateWithoutReportedByInput> | Prisma.IncidentCreateWithoutReportedByInput[] | Prisma.IncidentUncheckedCreateWithoutReportedByInput[]
   connectOrCreate?: Prisma.IncidentCreateOrConnectWithoutReportedByInput | Prisma.IncidentCreateOrConnectWithoutReportedByInput[]
@@ -726,6 +738,20 @@ export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
 }
 
+export type IncidentCreateNestedOneWithoutAssignmentsInput = {
+  create?: Prisma.XOR<Prisma.IncidentCreateWithoutAssignmentsInput, Prisma.IncidentUncheckedCreateWithoutAssignmentsInput>
+  connectOrCreate?: Prisma.IncidentCreateOrConnectWithoutAssignmentsInput
+  connect?: Prisma.IncidentWhereUniqueInput
+}
+
+export type IncidentUpdateOneRequiredWithoutAssignmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.IncidentCreateWithoutAssignmentsInput, Prisma.IncidentUncheckedCreateWithoutAssignmentsInput>
+  connectOrCreate?: Prisma.IncidentCreateOrConnectWithoutAssignmentsInput
+  upsert?: Prisma.IncidentUpsertWithoutAssignmentsInput
+  connect?: Prisma.IncidentWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.IncidentUpdateToOneWithWhereWithoutAssignmentsInput, Prisma.IncidentUpdateWithoutAssignmentsInput>, Prisma.IncidentUncheckedUpdateWithoutAssignmentsInput>
+}
+
 export type IncidentCreateWithoutReportedByInput = {
   id?: string
   title: string
@@ -743,6 +769,7 @@ export type IncidentCreateWithoutReportedByInput = {
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
   requiredSkills?: Prisma.SkillCreateNestedManyWithoutIncidentsInput
+  assignments?: Prisma.IncidentAssignmentCreateNestedManyWithoutIncidentInput
 }
 
 export type IncidentUncheckedCreateWithoutReportedByInput = {
@@ -762,6 +789,7 @@ export type IncidentUncheckedCreateWithoutReportedByInput = {
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
   requiredSkills?: Prisma.SkillUncheckedCreateNestedManyWithoutIncidentsInput
+  assignments?: Prisma.IncidentAssignmentUncheckedCreateNestedManyWithoutIncidentInput
 }
 
 export type IncidentCreateOrConnectWithoutReportedByInput = {
@@ -829,6 +857,7 @@ export type IncidentCreateWithoutRequiredSkillsInput = {
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
   reportedBy: Prisma.UserCreateNestedOneWithoutIncidentsInput
+  assignments?: Prisma.IncidentAssignmentCreateNestedManyWithoutIncidentInput
 }
 
 export type IncidentUncheckedCreateWithoutRequiredSkillsInput = {
@@ -848,6 +877,7 @@ export type IncidentUncheckedCreateWithoutRequiredSkillsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
+  assignments?: Prisma.IncidentAssignmentUncheckedCreateNestedManyWithoutIncidentInput
 }
 
 export type IncidentCreateOrConnectWithoutRequiredSkillsInput = {
@@ -869,6 +899,102 @@ export type IncidentUpdateWithWhereUniqueWithoutRequiredSkillsInput = {
 export type IncidentUpdateManyWithWhereWithoutRequiredSkillsInput = {
   where: Prisma.IncidentScalarWhereInput
   data: Prisma.XOR<Prisma.IncidentUpdateManyMutationInput, Prisma.IncidentUncheckedUpdateManyWithoutRequiredSkillsInput>
+}
+
+export type IncidentCreateWithoutAssignmentsInput = {
+  id?: string
+  title: string
+  description: string
+  category: $Enums.IncidentCategory
+  priority?: $Enums.IncidentPriority
+  status?: $Enums.IncidentStatus
+  latitude: number
+  longitude: number
+  address?: string | null
+  aiClassification?: string | null
+  aiConfidence?: number | null
+  peopleAtRisk?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  resolvedAt?: Date | string | null
+  reportedBy: Prisma.UserCreateNestedOneWithoutIncidentsInput
+  requiredSkills?: Prisma.SkillCreateNestedManyWithoutIncidentsInput
+}
+
+export type IncidentUncheckedCreateWithoutAssignmentsInput = {
+  id?: string
+  reportedById: string
+  title: string
+  description: string
+  category: $Enums.IncidentCategory
+  priority?: $Enums.IncidentPriority
+  status?: $Enums.IncidentStatus
+  latitude: number
+  longitude: number
+  address?: string | null
+  aiClassification?: string | null
+  aiConfidence?: number | null
+  peopleAtRisk?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  resolvedAt?: Date | string | null
+  requiredSkills?: Prisma.SkillUncheckedCreateNestedManyWithoutIncidentsInput
+}
+
+export type IncidentCreateOrConnectWithoutAssignmentsInput = {
+  where: Prisma.IncidentWhereUniqueInput
+  create: Prisma.XOR<Prisma.IncidentCreateWithoutAssignmentsInput, Prisma.IncidentUncheckedCreateWithoutAssignmentsInput>
+}
+
+export type IncidentUpsertWithoutAssignmentsInput = {
+  update: Prisma.XOR<Prisma.IncidentUpdateWithoutAssignmentsInput, Prisma.IncidentUncheckedUpdateWithoutAssignmentsInput>
+  create: Prisma.XOR<Prisma.IncidentCreateWithoutAssignmentsInput, Prisma.IncidentUncheckedCreateWithoutAssignmentsInput>
+  where?: Prisma.IncidentWhereInput
+}
+
+export type IncidentUpdateToOneWithWhereWithoutAssignmentsInput = {
+  where?: Prisma.IncidentWhereInput
+  data: Prisma.XOR<Prisma.IncidentUpdateWithoutAssignmentsInput, Prisma.IncidentUncheckedUpdateWithoutAssignmentsInput>
+}
+
+export type IncidentUpdateWithoutAssignmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.EnumIncidentCategoryFieldUpdateOperationsInput | $Enums.IncidentCategory
+  priority?: Prisma.EnumIncidentPriorityFieldUpdateOperationsInput | $Enums.IncidentPriority
+  status?: Prisma.EnumIncidentStatusFieldUpdateOperationsInput | $Enums.IncidentStatus
+  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiClassification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiConfidence?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  peopleAtRisk?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reportedBy?: Prisma.UserUpdateOneRequiredWithoutIncidentsNestedInput
+  requiredSkills?: Prisma.SkillUpdateManyWithoutIncidentsNestedInput
+}
+
+export type IncidentUncheckedUpdateWithoutAssignmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  reportedById?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.EnumIncidentCategoryFieldUpdateOperationsInput | $Enums.IncidentCategory
+  priority?: Prisma.EnumIncidentPriorityFieldUpdateOperationsInput | $Enums.IncidentPriority
+  status?: Prisma.EnumIncidentStatusFieldUpdateOperationsInput | $Enums.IncidentStatus
+  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiClassification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiConfidence?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  peopleAtRisk?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  requiredSkills?: Prisma.SkillUncheckedUpdateManyWithoutIncidentsNestedInput
 }
 
 export type IncidentCreateManyReportedByInput = {
@@ -906,6 +1032,7 @@ export type IncidentUpdateWithoutReportedByInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   requiredSkills?: Prisma.SkillUpdateManyWithoutIncidentsNestedInput
+  assignments?: Prisma.IncidentAssignmentUpdateManyWithoutIncidentNestedInput
 }
 
 export type IncidentUncheckedUpdateWithoutReportedByInput = {
@@ -925,6 +1052,7 @@ export type IncidentUncheckedUpdateWithoutReportedByInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   requiredSkills?: Prisma.SkillUncheckedUpdateManyWithoutIncidentsNestedInput
+  assignments?: Prisma.IncidentAssignmentUncheckedUpdateManyWithoutIncidentNestedInput
 }
 
 export type IncidentUncheckedUpdateManyWithoutReportedByInput = {
@@ -962,6 +1090,7 @@ export type IncidentUpdateWithoutRequiredSkillsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reportedBy?: Prisma.UserUpdateOneRequiredWithoutIncidentsNestedInput
+  assignments?: Prisma.IncidentAssignmentUpdateManyWithoutIncidentNestedInput
 }
 
 export type IncidentUncheckedUpdateWithoutRequiredSkillsInput = {
@@ -981,6 +1110,7 @@ export type IncidentUncheckedUpdateWithoutRequiredSkillsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  assignments?: Prisma.IncidentAssignmentUncheckedUpdateManyWithoutIncidentNestedInput
 }
 
 export type IncidentUncheckedUpdateManyWithoutRequiredSkillsInput = {
@@ -1009,10 +1139,12 @@ export type IncidentUncheckedUpdateManyWithoutRequiredSkillsInput = {
 
 export type IncidentCountOutputType = {
   requiredSkills: number
+  assignments: number
 }
 
 export type IncidentCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   requiredSkills?: boolean | IncidentCountOutputTypeCountRequiredSkillsArgs
+  assignments?: boolean | IncidentCountOutputTypeCountAssignmentsArgs
 }
 
 /**
@@ -1030,6 +1162,13 @@ export type IncidentCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Ext
  */
 export type IncidentCountOutputTypeCountRequiredSkillsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.SkillWhereInput
+}
+
+/**
+ * IncidentCountOutputType without action
+ */
+export type IncidentCountOutputTypeCountAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.IncidentAssignmentWhereInput
 }
 
 
@@ -1052,6 +1191,7 @@ export type IncidentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   resolvedAt?: boolean
   reportedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   requiredSkills?: boolean | Prisma.Incident$requiredSkillsArgs<ExtArgs>
+  assignments?: boolean | Prisma.Incident$assignmentsArgs<ExtArgs>
   _count?: boolean | Prisma.IncidentCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["incident"]>
 
@@ -1118,6 +1258,7 @@ export type IncidentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs =
 export type IncidentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   reportedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   requiredSkills?: boolean | Prisma.Incident$requiredSkillsArgs<ExtArgs>
+  assignments?: boolean | Prisma.Incident$assignmentsArgs<ExtArgs>
   _count?: boolean | Prisma.IncidentCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type IncidentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1132,6 +1273,7 @@ export type $IncidentPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
   objects: {
     reportedBy: Prisma.$UserPayload<ExtArgs>
     requiredSkills: Prisma.$SkillPayload<ExtArgs>[]
+    assignments: Prisma.$IncidentAssignmentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1546,6 +1688,7 @@ export interface Prisma__IncidentClient<T, Null = never, ExtArgs extends runtime
   readonly [Symbol.toStringTag]: "PrismaPromise"
   reportedBy<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   requiredSkills<T extends Prisma.Incident$requiredSkillsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Incident$requiredSkillsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SkillPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  assignments<T extends Prisma.Incident$assignmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Incident$assignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IncidentAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2013,6 +2156,30 @@ export type Incident$requiredSkillsArgs<ExtArgs extends runtime.Types.Extensions
   take?: number
   skip?: number
   distinct?: Prisma.SkillScalarFieldEnum | Prisma.SkillScalarFieldEnum[]
+}
+
+/**
+ * Incident.assignments
+ */
+export type Incident$assignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the IncidentAssignment
+   */
+  select?: Prisma.IncidentAssignmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the IncidentAssignment
+   */
+  omit?: Prisma.IncidentAssignmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.IncidentAssignmentInclude<ExtArgs> | null
+  where?: Prisma.IncidentAssignmentWhereInput
+  orderBy?: Prisma.IncidentAssignmentOrderByWithRelationInput | Prisma.IncidentAssignmentOrderByWithRelationInput[]
+  cursor?: Prisma.IncidentAssignmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.IncidentAssignmentScalarFieldEnum | Prisma.IncidentAssignmentScalarFieldEnum[]
 }
 
 /**
