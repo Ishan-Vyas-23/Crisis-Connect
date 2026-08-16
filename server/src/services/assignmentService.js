@@ -294,7 +294,44 @@ async function getRankedMatches(adminUserRole, incidentId) {
   // Sort descending by score
   candidates.sort((a, b) => b.score - a.score);
 
-  return candidates;
+  // Bounded Route Enrichment (Phase 7):
+  // Request routing details for at most the Top 5 candidates in parallel.
+  // Process-local TTL caching minimizes external calls.
+  // Graceful degradation: If geocoding or routing fails, route details are set to null, and the matching process continues.
+  const locationService = require('../location/locationService');
+  const topCandidates = candidates.slice(0, 5);
+
+  const enrichedTop = await Promise.all(
+    topCandidates.map(async (candidate) => {
+      const vol = volunteers.find(v => v.id === candidate.volunteerId);
+      if (!vol || vol.latitude === null || vol.longitude === null) {
+        return { ...candidate, route: null };
+      }
+
+      try {
+        const route = await locationService.getRoute(
+          { latitude: vol.latitude, longitude: vol.longitude },
+          { latitude: incident.latitude, longitude: incident.longitude }
+        );
+        return {
+          ...candidate,
+          route: route && route.routeAvailable ? {
+            distanceKm: route.distanceKm,
+            durationMinutes: route.durationMinutes,
+            polyline: route.polyline
+          } : null
+        };
+      } catch (err) {
+        // Fallback gracefully on provider timeout or API keys issues
+        return { ...candidate, route: null };
+      }
+    })
+  );
+
+  const remaining = candidates.slice(5).map(c => ({ ...c, route: null }));
+  const finalCandidates = [...enrichedTop, ...remaining];
+
+  return finalCandidates;
 }
 
 async function getIncidentAssignments(adminUserRole, incidentId) {
